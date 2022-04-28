@@ -36,17 +36,47 @@ io.on('connection',(socket)=>{
 		newData = newData[0] + newData[1];
 		socket.to(socket.data.channel).emit("audio",newData);
 	})
-	socket.on("usrInfo",(data)=>{
-		addUser(data.id,data)
+	socket.on("usrInfo",async (data)=>{
+		//	addUser(data.id,data)
 		socket.data.usrId=data.id
 		socket.join(data.channel)
 		socket.data.channel=data.channel
+		socket.data.name=data.name
+		try{
+		const clients = await io.in(socket.data.channel).fetchSockets()
+		const ret = []
+		clientsArr=[...clients]
+		for (const client of clientsArr ) {
+	//		const client = io.sockets.sockets.get(clientId);
+			ret.push({"id":client.data.usrId,"name":client.data.name})
+		}
+		io.sockets.in(data.channel).emit('newUser', ret);
+		}catch(e){
+			console.log(e)
+		}})
+	socket.on("usrMsg",(msg)=>{
+		socket.to(socket.data.channel).emit("msg",{sender:`${socket.data.name}#${socket.data.usrId}`,"msg":msg,time:getTimeStamp()})
 	})
-	socket.on("disconnect",()=>{
+	socket.on("disconnect",async ()=>{
 		console.log("disconnect")
 		console.log(socket.data.usrId);
-		removeUser(socket.data.usrId)
-	})
+		socket.leave(socket.data.channel)
+		//	removeUser(socket.data.usrId)
+try{
+	const clients = await io.in(socket.data.channel).fetchSockets()
+//	console.log(clients)
+		const ret = []
+		clientsArr=[...clients]
+		for (const client of clientsArr ) {
+	//		const client = io.sockets.sockets.get(clientId);
+			ret.push({"id":client.data.usrId,"name":client.data.name})
+		}
+
+		io.sockets.in(socket.data.channel).emit('newUser', ret);
+
+}catch(e){
+	console.log(e)
+}})
 })
 
 
@@ -73,10 +103,10 @@ const listAllUsers=async ()=>{
 			console.log(err);
 			return;
 		}
-	//	console.log(users)
+		//	console.log(users)
 		data = users
 	});
-return data;
+	return data;
 
 
 }
@@ -90,10 +120,10 @@ const addUser=async (usrId,usrStatus)=>{
 		}
 
 		users[usrId]=usrStatus
-		 fs.writeFile("./static/db/db.json", JSON.stringify(users), err => {
+		fs.writeFile("./static/db/db.json", JSON.stringify(users), err => {
 			if (err) console.log("Error writing file:", err);
 		});
-	listAllUsers()
+		listAllUsers()
 	});
 }
 
@@ -104,10 +134,10 @@ const removeUser = (usrId) => {
 			return;
 		}
 		delete users[usrId]
-		 fs.writeFile("./static/db/db.json", JSON.stringify(users), err => {
+		fs.writeFile("./static/db/db.json", JSON.stringify(users), err => {
 			if (err) console.log("Error writing file:", err);
 		});
-	listAllUsers()
+		listAllUsers()
 	});
 
 }
@@ -122,4 +152,17 @@ const getUser=(usrId)=>{
 	});
 
 
+}
+function getTimeStamp() {
+    var now = new Date();
+    return ((now.getDate()) + '/' +
+            (now.getMonth()+1) + '/' +
+             now.getFullYear() + " " +
+             now.getHours() + ':' +
+             ((now.getMinutes() < 10)
+                 ? ("0" + now.getMinutes())
+                 : (now.getMinutes())) + ':' +
+             ((now.getSeconds() < 10)
+                 ? ("0" + now.getSeconds())
+                 : (now.getSeconds())));
 }

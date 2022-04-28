@@ -3,6 +3,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 		<link rel="stylesheet" href="/static/css/style.css">
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="/static/js/script.js"></script>
@@ -33,21 +36,35 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="main">
+				<div class="heading">
+				<h1>Audio Controls</h1>
+				</div>
 				<div class="join">
-
 					<button onclick="joinChannel(this)">Join Chat</button>
 				</div>
-
 				<div class="ctrls">
-
 					<div class="mic" ><img src="/static/img/micMute.svg" onclick="muteOutgoing(this)"/></div>
 					<div class="speaker"><img src="/static/img/sound.svg" onclick="muteIncoming(this)"/></div>
-
-
 				</div>
 			</div>	
+			<div class="allUsers">
+				<div class="heading">
+					<h1>In this Channel</h1>
+				</div>
+				<div id="users" class="users"></div>
+			</div>
+			<div class="chats">
+				<div class="heading">
+					<h1>Text Messages</h1>
+				</div>
+				<div id="msgs" class="msgs">
+			</div>	<div class="inp">
+						<input type="text" id="usrMsg" placeholder="Type a message">
+						<button onclick="sendMsg()">Send</button>
+					</div>
+
+			</div>
 		</div>
 	</body>
 </html>
