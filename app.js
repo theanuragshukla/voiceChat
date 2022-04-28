@@ -22,6 +22,11 @@ app.get('/',(req,res)=>{
 	res.sendFile(__dirname+'/index.html')
 })
 
+app.get("/listAllUsers",async (req,res)=>{
+		res.setHeader('Content-Type', 'application/json');
+		res.json(require('./static/db/db.json'))
+})
+
 /* socket.io stuff  */
 const io = require('socket.io')(server)
 io.on('connection',(socket)=>{
@@ -61,14 +66,17 @@ const getDB = (filePath,cb)=>{
 	});
 }
 
-const listAllUsers=()=>{
+const listAllUsers=async ()=>{
+	var data;
 	getDB("./static/db/db.json", async (err, users) => {
 		if (err) {
 			console.log(err);
 			return;
 		}
-		console.log(users);
+	//	console.log(users)
+		data = users
 	});
+return data;
 
 
 }

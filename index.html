@@ -1,19 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<link rel="stylesheet" href="/static/css/style.css">
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="/static/js/script.js"></script>
-	<title></title>
-</head>
-<body>
-	<h1>voice-chat</h1>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="/static/css/style.css">
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/static/js/script.js"></script>
+		<title></title>
+	</head>
+	<body>
+		<div class="super">
+			<div class="heading">
+				<h1>Voice Chat</h1>
+			</div>
 
-	<button onclick="joinChannel(this)">Join Chat</button>
-	<button onclick="muteOutgoing(this)">Turn Mic on</button>
-	<button onclick="muteIncoming(this)">Turn Speakers Off</button>
+			<div class="info">
+				<div class="heading">
+					<h1>Your Info</h1>
+				</div>
+				<div class="dataDiv">
+					<div class="data">
+						<div class="key">Name</div>
+						<div class="value" id="name"></div>
+					</div>
+					<div class="data">
+						<div class="key">User Id</div>
+						<div class="value" id="id"></div>
+					</div>
+					<div class="data">
+						<div class="key">Channel Id</div>
+						<div class="value" id="room"></div>
+					</div>
+				</div>
+			</div>
 
-</body>
+			<div class="main">
+				<div class="join">
+
+					<button onclick="joinChannel(this)">Join Chat</button>
+				</div>
+
+				<div class="ctrls">
+
+					<div class="mic" ><img src="/static/img/micMute.svg" onclick="muteOutgoing(this)"/></div>
+					<div class="speaker"><img src="/static/img/sound.svg" onclick="muteIncoming(this)"/></div>
+
+
+				</div>
+			</div>	
+		</div>
+	</body>
 </html>

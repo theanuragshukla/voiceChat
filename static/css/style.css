@@ -6,3 +6,86 @@
 :root {
 	font-size: 16px;
 }
+.mic ,.speaker{
+	height: 40px;
+	width: 40px;
+}
+.mic>img,.speaker > img {
+	height: 100%;
+	width: 100%;
+}
+
+.super {
+	min-height: 90vh;
+	width: 100vw;
+	background-color: blanchedalmond;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.super>div {
+	margin-top: 20px;
+}
+.main,.super > div {
+	max-width: 800px;
+	min-width: min(90vw,700px);
+	display: flex;
+	justify-content: space-around;
+	border: 2px solid;
+	flex-direction: column;
+	align-items: center	;
+	padding: 10px;
+	border-radius: 6px;
+	margin-top: 20px;
+}
+.heading > h1 {
+	font-size: 1.8rem;
+}
+.join>button {
+	height: 40px;
+	padding: 10px 15px;
+	border: 1px solid ghostwhite;
+	border-radius: 6px;
+	background-color: cornflowerblue;
+	color: ghostwhite;
+	margin: 20px;
+	}
+.info {
+}
+
+.ctrls {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items:center ;
+}
+.ctrls>div {
+	margin: 10px;
+}
+.dataDiv {
+	width: 100%;
+	display: flex;
+	flex-direction:column ;
+}
+.data {
+	width: 100%;
+	display: flex;
+}
+.data > div {
+	font-size: 1.2rem;
+	text-align: center;
+	padding:0 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.key {
+	width: 50%;
+	border-right: 2px solid;
+	text-align:center ;
+}
+.value {
+	border: 0px solid;
+	width: 50%;
+	text-align: center;
+}

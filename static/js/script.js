@@ -16,18 +16,22 @@ socket.on("audio", function (data) {
 	if(!usrStatus.speaker) return;
     var audio = new Audio(data);
     audio.play();
-  });	
-	usrStatus.id=Math.floor(Math.random()*10000000000)
-	usrStatus.name=prompt("Enter your name","idiot")
-	usrStatus.channel=prompt("Enter a Channel Id to join", Math.floor(Math.random()*1000000000))
+  });
+	var old = sessionStorage.getItem("id")!=null
+	usrStatus.id=old ?sessionStorage.getItem("id") : Math.floor(Math.random()*10000000000);
+	usrStatus.name=old ? sessionStorage.getItem("name") :prompt("Enter your name","idiot")
+	usrStatus.channel=old ? sessionStorage.getItem("channel"):prompt("Enter a Channel Id to join", Math.floor(Math.random()*1000000000))
 	if(usrStatus.name==null || usrStatus.channel==null) 
 		location.href="/"
+getBlock("name").innerText=usrStatus.name;
+getBlock("id").innerText=usrStatus.id;
+getBlock("room").innerText=usrStatus.channel;
+
 
 }
-
 function muteOutgoing(e){
 usrStatus.mic=!usrStatus.mic
-e.innerHTML=usrStatus.mic ? "Turn mic Off" : "Turn mic on";
+e.setAttribute("src",!usrStatus.mic ? "/static/img/micMute.svg" : "/static/img/mic.svg")
 socket.emit("usrInfo",usrStatus)
 	if(!usrStatus.mic){
 		stop();
@@ -83,11 +87,17 @@ function stop(){
 
 function muteIncoming(e){
 	usrStatus.speaker=!usrStatus.speaker
-	e.innerHTML=(usrStatus.speaker ? "Turn Speakers Off" : "Turn Speakers on")
+e.setAttribute("src",usrStatus.speaker? "/static/img/sound.svg" : "/static/img/noSound.svg");
 }
 
 function joinChannel(e){
-
+sessionStorage.setItem("id", usrStatus.id)
+sessionStorage.setItem("name", usrStatus.name)
+sessionStorage.setItem("channel", usrStatus.channel)
 socket.emit("usrInfo",usrStatus);
 	e.style.display="none";
+}
+
+function getBlock(id){
+	return document.getElementById(id);
 }
