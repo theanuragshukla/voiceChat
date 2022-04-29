@@ -42,6 +42,13 @@ html {
 	border-radius: 6px;
 	margin-top: 20px;
 }
+.heading {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 10px;
+}
 .heading > h1 {
 	font-size: 1.5rem;
 }
@@ -187,4 +194,30 @@ html {
 }
 .violet {
 	color: violet;
+}
+.helpBox {
+	width: 100%;
+}
+.medHead {
+	width: 100%;
+}
+.medHead > h1 {
+	font-size: 1.3rem;
+	text-align: left;
+	width: 100%;
+	font-weight: bolder;
+	display: inline-block;
+}
+.text {
+	margin-top: 5px;
+	line-height: 150%;
+}
+.text>span {
+	color: green;
+	font-weight: bold;
+}
+.helpBox,.privacy ,.tos{
+	overflow: scroll;
+	transition:height 0.5s ease-in-out;
+	height: 0;
 }

@@ -1,7 +1,10 @@
 var constraints = { audio: true };
 var localStream;
 var socket;
+var policy=false
 const time=1000;
+var helpBox=false;
+var tos=false
 const usrStatus = {
 	id:"testUser",
 	channel:null,
@@ -149,4 +152,19 @@ function randomColor(){
 }
 function scrollToBottom(){
 getBlock("msgs").scrollTo({ left: 0, top: getBlock("msgs").scrollHeight, behavior: "smooth" });
+}
+function togglePolicy(e){
+	policy=!policy
+	e.innerHTML=policy ? "Hide Privacy Policy":"Show Privacy Policy"
+	getBlock("privacy").style.height=policy?"300px":"0"
+}
+function toggleHelp(e){
+	helpBox=!helpBox
+	e.innerHTML=helpBox ? "Hide Help":"Show Help"
+	getBlock("helpBox").style.height=helpBox?"600px":"0"
+}
+function toggleTos(e){
+	tos=!tos
+	e.innerHTML=tos ? "Hide ToS":"Show Tos"
+	getBlock("tos").style.height=tos?"250px":"0"
 }
