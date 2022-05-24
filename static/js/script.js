@@ -1,4 +1,3 @@
-var constraints = { audio: true };
 var localStream;
 var socket;
 var policy=false
@@ -12,6 +11,14 @@ const usrStatus = {
 	online:true,
 	mic:false,
 	speaker:true,
+}
+const constraints = {
+    audio: {
+        channelCount: 1,
+        sampleRate: 16000,
+        sampleSize: 16,
+        volume: 1
+    }
 }
 window.onload=function(){
 	socket=io.connect('/');
@@ -51,7 +58,7 @@ function muteOutgoing(e){
 		stop();
 		return
 	}
-	navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+	navigator.mediaDevices.getUserMedia({ audio:constraints }).then((stream) => {
 		var mediaRecorder = new MediaRecorder(stream);
 		localStream=stream
 		mediaRecorder.start();
